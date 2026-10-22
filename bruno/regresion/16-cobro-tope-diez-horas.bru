@@ -1,0 +1,29 @@
+meta {
+  name: Cobro con tope diez horas
+  type: http
+  seq: 16
+}
+
+post {
+  url: {{baseUrl}}/tickets/{{topeLargoId}}/salida
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "salida": "2026-10-22T18:00:00"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.minutos: eq 600
+  res.body.monto: eq 60
+}
+
+docs {
+  Tecnica: Particion de equivalencia (estadia muy por encima del tope)
+  Valor probado: 10 horas = 600 minutos
+  Resultado esperado: 200 y monto = 60 (tope), no Q100
+}

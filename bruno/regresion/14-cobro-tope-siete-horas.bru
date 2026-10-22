@@ -1,0 +1,29 @@
+meta {
+  name: Cobro con tope siete horas
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/tickets/{{topeId}}/salida
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "salida": "2026-10-22T14:01:00"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.minutos: eq 361
+  res.body.monto: eq 60
+}
+
+docs {
+  Tecnica: Valores frontera (primer minuto que supera el tope)
+  Valor probado: 6h01m = 361 minutos, 7 horas o fraccion
+  Resultado esperado: 200 y monto = 60 (tope), no Q70
+}
