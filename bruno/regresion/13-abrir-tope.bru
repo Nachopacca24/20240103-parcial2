@@ -24,3 +24,9 @@ assert {
 script:post-response {
   bru.setVar("topeId", res.body.id);
 }
+
+docs {
+  Tecnica: Preparacion del caso de tope (valores frontera)
+  Valor probado: POST de C789GHI con entrada 08:00
+  Resultado esperado: 201 Created; se guarda topeId
+}
